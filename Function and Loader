@@ -1,0 +1,51 @@
+import sys
+sys.version
+print(sys.executable)
+
+
+import essentia
+import essentia.standard as es
+import essentia.streaming
+import json
+
+
+def analyze_audio(audio_file):
+    # Load audio file
+    audio = es.MonoLoader(filename=audio_file)()
+
+    # Perform audio analysis using Essentia
+    pitch_extractor = es.PitchYinFFT()
+    pitch, pitch_confidence = pitch_extractor(audio)
+
+    # Add more analysis as needed
+
+    # Return a dictionary with the results
+    result = {
+        'audio_file': audio_file,
+        'pitch': pitch,
+        'pitch_confidence': pitch_confidence,
+        # Add more attributes here
+    }
+    return result
+
+
+import os
+data = []
+
+dataset_path = r"C:\Users\alpha\OneDrive\Desktop\Audio Files\ESC-50-master\audio"
+
+for root, dirs, files in os.walk(dataset_path):
+    print(f"Root: {root}")
+    print(f"Dirs: {dirs}")
+    print(f"Files: {files}")
+    for file in files:
+        if file.endswith(".wav"):
+            audio_path = os.path.join(root, file)
+            print(audio_path)  # Print the file path
+            # result = analyze_audio(audio_path)
+            # data.append(result)
+
+
+audio_file_path = r"C:\Users\alpha\OneDrive\Desktop\Audio Files\ESC-50-master\audio\1-137-A-32.wav"
+ # "C:\Users\alpha\OneDrive\Desktop\Audio Files\ESC-50-master\audio\1-137-A-32.wav"
+    print(audio_file_path)
